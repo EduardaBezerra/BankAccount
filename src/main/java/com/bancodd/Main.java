@@ -1,24 +1,12 @@
 package com.bancodd;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 /**
- * 1 - Fazer o menu se repetir ao final de cada operação até que
+ * MELHORIA:
+ *     fazer o menu se repetir ao final de cada operação até que
  *     o usuário informe um comando de encerramento (uma opção a mais)
- * 
- * 2
- * -> Arrays
- *      -> int ->  {1,2,3,5,6,...} -> 
- *      -> int[10] arrayAleatorio;
- *      -> arrayAleatorio[0] = 9;
- *      -> arrayAleatorio[7] = 2;
- * 
- *      -> int[] arrayAleatorio = {1,3,4,5,6,78,9};
- *      -> String[] arrayString = {"String 1", "String 2", ..., "String 10"}
- *      -> BankAccount[] banks  = {objeto1, objeto2, ..., firstAccount, secondAccout, thirdAccount...}
- * 
- * 
- * -> Lists/ArrayLists
  */
 
 public class Main {
@@ -48,6 +36,7 @@ public class Main {
         Scanner reader = new Scanner(System.in);
         BankAccount firstAccount = new BankAccount();
         String name, password; 
+        ArrayList<String> n = new ArrayList<>();
         
         /* "name" e "password" são objetos que não precisaram do construtor para serem criados (por isso não usa "new") 
         por convenção do Java. Logo, String é a única classe que permite ter objetos sem uso de contrutor */

@@ -1,6 +1,4 @@
-package com;
-
-import com.bancodd.BankAccount;
+package com.bancodd;
 
 public class SpecialAccount extends BankAccount {
 
