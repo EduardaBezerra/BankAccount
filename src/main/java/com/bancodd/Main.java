@@ -3,26 +3,34 @@ package com.bancodd;
 import java.util.Scanner;
 import java.util.ArrayList;
 
-/**
- * MELHORIA:
- *     fazer o menu se repetir ao final de cada operação até que
- *     o usuário informe um comando de encerramento (uma opção a mais)
- */
 
 public class Main {
 
     public static boolean inputPrint(BankAccount account, Scanner reader){
-        
+
+        /*A variável numberAccount foi criada para poder usar o nextLine depois dela.
+        Antes dela ser criada o nextInt ficava direto no if, porém, desse jeito iria 
+        ter que repetir o nextLine 4x (2 dentro de cada if e 2 fora de cada if). Do jeito 
+        que esta agora são usados 2 nextLine a menos :)
+        */
+
         System.out.println("\nDigite o número da sua conta: ");
-                 
-        if((reader.nextInt()) != (account.getAccountNum())){ // MELHORIA: ACESSAR CONTA ESPECIFICA QUANDO TIVER MAIS DE UMA
+        
+        int numberAccount = reader.nextInt(); 
+        reader.nextLine(); //Este nextLine serve para limpar o buffer
+  
+        if(numberAccount != (account.getAccountNum())){ // MELHORIA: ACESSAR CONTA ESPECIFICA QUANDO TIVER MAIS DE UMA
             System.out.println("Essa conta não existe!\nTente novamente: ");
             return false;
         }
 
         System.out.println("\nDigite sua senha: ");
 
-        if((reader.nextInt()) != (account.getPassword())){
+        int password = reader.nextInt(); //Foi criado com o mesmo intuito de numberAccount
+        reader.nextLine(); //Este nextLine serve para limpar o buffer
+
+
+        if(password != (account.getPassword())){
             System.out.println("Senha incorreta!\nTente novamente: ");
             return false;
         }
