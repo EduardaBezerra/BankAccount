@@ -2,9 +2,18 @@ package com.bancodd;
 
 import java.util.Scanner;
 import java.util.ArrayList;
-
+import java.util.Random; 
 
 public class Main {
+
+    private static final int LIMITMAX = 900001;
+    private static final int LIMITMIN = 100000;
+
+    public static int generateAccount(){
+        Random generator = new Random();
+        int newAccountNumber = (generator.nextInt(LIMITMAX) + LIMITMIN); 
+        return newAccountNumber;
+    }
 
     public static boolean inputPrint(BankAccount account, Scanner reader){
 
@@ -80,7 +89,7 @@ public class Main {
                     System.out.println("\nSenha Criada!");
 
                     firstAccount.setClient(name);
-                    firstAccount.setAccountNum(8232301); //MELHORIA: CRIAR UM METODO QUE GERE UMA CONTA ALEATORIA
+                    firstAccount.setAccountNum(generateAccount()); 
                     firstAccount.setBalance(0);
                     firstAccount.setPassword(Integer.parseInt(password)); //Integer é uma classe de inteiros e parseInt é um método estático. Ele esta sendo usado para converter o "password" de String para Int
 
@@ -93,7 +102,7 @@ public class Main {
                 case 2: // Vê o saldo
 
                     while(inputPrint(firstAccount, reader) == false){}
-                    System.out.printf("Olá, %s! Seu saldo é R$ %.2f", firstAccount.getClient().split(" ")[0], firstAccount.getBalance());                
+                    System.out.printf("\nOlá, %s! Seu saldo é R$ %.2f", firstAccount.getClient().split(" ")[0], firstAccount.getBalance());                
                     break;
 
                 case 3: // Saca um valor
@@ -104,9 +113,9 @@ public class Main {
                     while(inputPrint(firstAccount, reader) == false){}
 
                     if(firstAccount.toWithdraw(withdraw)){
-                        System.out.printf("Parabéns! O saque foi realizado com sucesso\nSeu novo saldo é R$ %.2f", firstAccount.getBalance());
+                        System.out.printf("\nParabéns! O saque foi realizado com sucesso\nSeu novo saldo é R$ %.2f", firstAccount.getBalance());
                     }else{
-                        System.out.println("Operação inválida: Saldo Insuficiente!");
+                        System.out.println("\nOperação inválida");
                     }
                         
                     break;
@@ -118,12 +127,16 @@ public class Main {
 
                     while(inputPrint(firstAccount, reader) == false){}
 
-                    System.out.printf("Parabéns! O depósito foi realizado com sucesso\nSeu novo saldo é R$ %.2f", firstAccount.toDeposit(deposit));
+                    if(firstAccount.toDeposit(deposit)){
+                        System.out.printf("\nParabéns! O depósito foi realizado com sucesso\nSeu novo saldo é R$ %.2f", firstAccount.getBalance());
+                    }else{
+                        System.out.println("\nOperação inválida");
+                    }
 
                     break;
 
                 case 5:
-                    
+
                     break;
 
                 default:

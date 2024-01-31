@@ -16,7 +16,7 @@ public class BankAccount {
     
     //Saque
     public boolean toWithdraw(float withdraw){ 
-        if(withdraw > balance){ // impede que o saldo fique negativo
+        if(withdraw > balance || withdraw <= 0){ // impede que o saldo fique negativo
             return false;
         }else {
             balance = balance - withdraw;
@@ -36,9 +36,13 @@ public class BankAccount {
     ----------------------------------*/
 
     //Depósito
-    public float toDeposit(float deposit){
-        balance = balance + deposit; 
-        return balance;
+    public boolean toDeposit(float deposit){
+        if(deposit <=0){
+            return false;
+        }else{
+            balance = balance + deposit; 
+            return true;
+        }
     }
 
     //Get & Set
