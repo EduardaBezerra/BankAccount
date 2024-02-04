@@ -3,7 +3,7 @@ package com.bancodd;
 public class BankAccount {
 
     //ATRIBUTOS
-    protected String client;    
+    protected String client;   // t: cliente (nome)
     protected int accountNum;  // t: número da conta
     protected float balance;   // t: saldo
     protected int password;    // t: senha

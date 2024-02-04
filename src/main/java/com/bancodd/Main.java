@@ -51,7 +51,7 @@ public class Main {
         
         //OBJETOS
         Scanner reader = new Scanner(System.in);
-        BankAccount firstAccount = new BankAccount();
+        ArrayList<BankAccount> bankAccountsList = new ArrayList<>(); //Lista de contas bancárias
         String name, password; 
         
         /* "name" e "password" são objetos que não precisaram do construtor para serem criados (por isso não usa "new") 
@@ -78,7 +78,7 @@ public class Main {
                     name = reader.nextLine(); 
 
                     System.out.println("\nCrie uma senha apenas com 6 números: ");
-                    password = reader.nextLine(); 
+                    password = reader.nextLine(); // A leitura é feita em string para depois ser convertida em inteiro, dessa forma, caso seja armazenado um "\n" durante a leitura o mesmo será descartado
 
 
                     while(password.length() != 6){ //Verifica se a senha tem 6 números
@@ -87,15 +87,21 @@ public class Main {
                     } 
 
                     System.out.println("\nSenha Criada!");
+    
+                    //OBJETO
+                    BankAccount newAccount = new BankAccount(); 
 
-                    firstAccount.setClient(name);
-                    firstAccount.setAccountNum(generateAccount()); 
-                    firstAccount.setBalance(0);
-                    firstAccount.setPassword(Integer.parseInt(password)); //Integer é uma classe de inteiros e parseInt é um método estático. Ele esta sendo usado para converter o "password" de String para Int
+                    //ATUALIZAÇÕES DO OBJETO "firstAccount"
+                    newAccount.setClient(name);
+                    newAccount.setAccountNum(generateAccount()); 
+                    newAccount.setBalance(0);
+                    newAccount.setPassword(Integer.parseInt(password)); //Integer é uma classe de inteiros e parseInt é um método estático. Ele esta sendo usado para converter o "password" de String para Int
+
+                    bankAccountsList.add(newAccount);
 
                     System.out.printf("\nParabéns, %s! Sua conta foi criada." +
-                                    "\nO número da sua conta é: %d" +
-                                    "\nSeu saldo é de R$ %.2f\n\n", firstAccount.getClient().split(" ")[0], firstAccount.getAccountNum(), firstAccount.getBalance());
+                                      "\nO número da sua conta é: %d" +
+                                      "\nSeu saldo é de R$ %.2f\n\n", newAccount.getClient().split(" ")[0], newAccount.getAccountNum(), newAccount.getBalance());
 
                     break;
                 
