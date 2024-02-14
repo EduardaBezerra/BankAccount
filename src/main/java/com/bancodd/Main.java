@@ -15,7 +15,7 @@ public class Main {
         return newAccountNumber;
     }
 
-    public static boolean inputPrint(BankAccount account, Scanner reader){
+    public static BankAccount inputPrint(ArrayList<BankAccount> accounts, Scanner reader){
 
         /*A variável numberAccount foi criada para poder usar o nextLine depois dela.
         Antes dela ser criada o nextInt ficava direto no if, porém, desse jeito iria 
@@ -27,24 +27,33 @@ public class Main {
         
         int numberAccount = reader.nextInt(); 
         reader.nextLine(); //Este nextLine serve para limpar o buffer
-  
-        if(numberAccount != (account.getAccountNum())){ // MELHORIA: ACESSAR CONTA ESPECIFICA QUANDO TIVER MAIS DE UMA
-            System.out.println("Essa conta não existe!\nTente novamente: ");
-            return false;
+
+        for(int i=0; i<accounts.size(); i++){
+
+            if(numberAccount != (accounts.get(i)).getAccountNum() && i == accounts.size()-1){
+
+                System.out.println("Essa conta não existe!\nTente novamente: ");
+                return null;
+
+            } else if(numberAccount == (accounts.get(i)).getAccountNum()){
+                BankAccount account = accounts.get(i);
+                
+                System.out.println("\nDigite sua senha: ");
+
+                int password = reader.nextInt(); //Foi criado com o mesmo intuito de numberAccount
+                reader.nextLine(); //Este nextLine serve para limpar o buffer
+    
+                if(password != (account.getPassword())){
+                    System.out.println("Senha incorreta!\nTente novamente: ");
+                    return null;
+                }
+
+                return account;
+                
+            }
         }
-
-        System.out.println("\nDigite sua senha: ");
-
-        int password = reader.nextInt(); //Foi criado com o mesmo intuito de numberAccount
-        reader.nextLine(); //Este nextLine serve para limpar o buffer
-
-
-        if(password != (account.getPassword())){
-            System.out.println("Senha incorreta!\nTente novamente: ");
-            return false;
-        }
-        
-        return true;
+   
+        return null;
     }
 
     public static void main(String[] args) {
@@ -88,7 +97,7 @@ public class Main {
 
                     System.out.println("\nSenha Criada!");
     
-                    //OBJETO
+                    //OBJETO (variável local)
                     BankAccount newAccount = new BankAccount(); 
 
                     //ATUALIZAÇÕES DO OBJETO "firstAccount"
@@ -97,6 +106,7 @@ public class Main {
                     newAccount.setBalance(0);
                     newAccount.setPassword(Integer.parseInt(password)); //Integer é uma classe de inteiros e parseInt é um método estático. Ele esta sendo usado para converter o "password" de String para Int
 
+                    //ADIÇÃO DE UMA NOVA CONTA BANCÁRIA NA LISTA 
                     bankAccountsList.add(newAccount);
 
                     System.out.printf("\nParabéns, %s! Sua conta foi criada." +
@@ -106,9 +116,13 @@ public class Main {
                     break;
                 
                 case 2: // Vê o saldo
+                
+                    BankAccount account = inputPrint(bankAccountsList, reader);
 
-                    while(inputPrint(firstAccount, reader) == false){}
-                    System.out.printf("\nOlá, %s! Seu saldo é R$ %.2f", firstAccount.getClient().split(" ")[0], firstAccount.getBalance());                
+                    while(account == null){
+                        account = inputPrint(bankAccountsList, reader);
+                    }
+                    System.out.printf("\nOlá, %s! Seu saldo é R$ %.2f", account.getClient().split(" ")[0], account.getBalance());                
                     break;
 
                 case 3: // Saca um valor
